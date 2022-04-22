@@ -25,5 +25,10 @@ def round(number: float, round_place: int = 1):
 	number_to_str = str(number)
 	split_number = number_to_str.split('.')
 	past_decimal = split_number[1]
+	if round_place == 0:
+		if past_decimal >= 5:
+			print('round up')
+		else:
+			print('round down')
 
 	return 	split_number
