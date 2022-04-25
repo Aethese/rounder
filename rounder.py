@@ -39,9 +39,13 @@ def round(number: float, round_place: int = 0):
 		else:
 			return first_numbers
 	else:  # round past decimal
+		if len(past_decimal) < round_place:
+			return number  # prob should handle this differently but eh
+
 		if int(past_decimal[round_place]) >= 5:
 			zero_string = ''  # add a 1 to whatever place needs changed to be 1 higher
 			# the for range determines where the number that needs to be changed is
+
 			for i in range(round_place):  # TODO: use a diff method cuz this CAN be hella slow
 				if i + 1 == round_place:
 					zero_string += '1'
@@ -52,6 +56,7 @@ def round(number: float, round_place: int = 0):
 			zero_string = float(zero_string)
 			old_past = float('0.' + past_decimal)
 			new_past_numbers = str(zero_string + old_past).split('.')[1]  # new numbers past decimal place
+
 			rounded_number = str(first_numbers) + '.' + str(new_past_numbers)[:round_place]
 			return float(rounded_number)
 		else:
