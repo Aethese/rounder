@@ -2,6 +2,21 @@
 Rounding module that rounds a float just like the built in round function lol
 '''
 
+# available options:
+# 	same_number: the same number passed onto the function
+#	error_message: an error message as to why it failed
+# 	none: just return None on error
+return_format = 'same_number'  # default is same_number
+
+def _return_handler(number, error = None):
+	if return_format == 'none':
+		return None
+	elif return_format == 'error_message':
+		return 'An error occured while rounding' if error is None else error
+	else:
+		return number  # in any other case just return the number
+
+
 def round(number: float, round_place: int = 0):
 	'''
 	Rounds a float just like the built in round function lol
@@ -26,7 +41,7 @@ def round(number: float, round_place: int = 0):
 	'''
 	is_float = isinstance(number, float)
 	if not is_float:
-		return number
+		return _return_handler(number, f'{number} is a {type(number).__name__}, not a float')
 
 	number_to_str = str(number)
 	split_number = number_to_str.split('.')
@@ -41,7 +56,7 @@ def round(number: float, round_place: int = 0):
 			return first_numbers
 	else:  # round past decimal
 		if len(past_decimal) < round_place:
-			return number  # prob should handle this differently but eh
+			return _return_handler(number, f'Failed to round past available digits. Number: {number}, Round place: {round_place}')
 
 		if int(past_decimal[round_place]) >= 5:
 			zero_string = ''  # add a 1 to whatever place needs changed to be 1 higher
