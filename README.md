@@ -10,7 +10,7 @@ rounder.round(3.14159, 1)
 # Output: 3.1
 ```
 ## Please note
-If you do attempt to round something that isn't a float or your round place is bigger than the current available digits, rounder will just return your original passed number. You can change the program to return something else if you wish, such as `None`.
+If you do attempt to round something that isn't a float or your round place is bigger than the current available digits, rounder will just return your original passed number. You can change that by editing the `rounder.return_format` variable through code or just hard coding the change with the documentation above the variable (only 3 options). Of course, feel free to add your own
 
 # Fun fact
 Rounder seems to be faster than the built in round function (you can see my speed tests in `tests.py`)! Take that Python!
