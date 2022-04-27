@@ -1,4 +1,4 @@
-import os
+import os, time
 import rounder
 os.system('cls' if os.name == 'nt' else 'clear')  # don't ask
 
@@ -40,17 +40,27 @@ else:
 
 
 try:  # Test 4
-	test_4a = rounder.round('penis', 1)
+	test_4a = rounder.round('not inappropriate', 1)
 	test_4b = rounder.round('yes')
 except Exception as e:
 	print('Test 4 failed with error:', e)
 
-if test_4a == 'penis' and test_4b == 'yes':
+if test_4a == 'not inappropriate' and test_4b == 'yes':
 	print('Test 4 passed')
 else:
 	print('Test 4 failed:', test_4a, test_4b)
 
 
-custom_test_5a = float(input('Custom test: '))  # Test 5
-custom_test_5b = int(input('What digit place? '))
-print(rounder.round(custom_test_5a, custom_test_5b))
+try:
+	start_time1 = time.time()
+	rounder.round(3.14159, 4)
+	finish_time1 = rounder.round(time.time() - start_time1, 2)  # hehe
+	start_time2 = time.time()
+	round(3.14159, 4)
+	finish_time2 = rounder.round(time.time() - start_time2, 2)
+except Exception as e:
+	print('Test 5 failed with error:', e)
+
+print('Test 5 passed with times:')
+print(finish_time1, 'for rounder')
+print(finish_time2, 'for built in round')
