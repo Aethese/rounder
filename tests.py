@@ -54,13 +54,19 @@ else:
 try:
 	start_time1 = time.time()
 	rounder.round(3.14159, 4)
-	finish_time1 = rounder.round(time.time() - start_time1, 2)  # hehe
+	finish_time1 = time.time() - start_time1
+	finish_time1a = rounder.round(finish_time1, 2)  # hehe
+
 	start_time2 = time.time()
 	round(3.14159, 4)
-	finish_time2 = rounder.round(time.time() - start_time2, 2)
+	finish_time2 = time.time() - start_time1
+	finish_time2a = rounder.round(finish_time2, 2)
 except Exception as e:
 	print('Test 5 failed with error:', e)
 
 print('Test 5 passed with times:')
-print(finish_time1, 'for rounder')
-print(finish_time2, 'for built in round')
+print(finish_time1a, 'for rounder')
+print(finish_time2a, 'for built in round')
+
+print(finish_time1, 'rounder full number')
+print(finish_time2, 'built in round full number')
