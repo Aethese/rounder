@@ -4,8 +4,8 @@ os.system('cls' if os.name == 'nt' else 'clear')  # don't ask
 
 
 try:  # Test 1
-	test_1a = rounder.round(4.5, 0)
-	test_1b = rounder.round(4.4)
+	test_1a = rounder.round(4.5191, 0)
+	test_1b = rounder.round(4.4191)
 except Exception as e:
 	print('Test 1 failed with error:', e)
 
@@ -66,7 +66,7 @@ except Exception as e:
 
 print('Test 5 passed with times:')
 print(finish_time1a, 'for rounder')
-print(finish_time2a, 'for built in round')
+print(finish_time2a, 'for built in round\n')
 
 print(finish_time1, 'rounder full number')
 print(finish_time2, 'built in round full number')
