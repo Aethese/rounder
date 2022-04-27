@@ -5,6 +5,7 @@ Rounding module that rounds a float just like the built in round function lol
 def round(number: float, round_place: int = 0):
 	'''
 	Rounds a float just like the built in round function lol
+	Made by Aethese :)
 
 	Parameters
 	----------
@@ -29,11 +30,11 @@ def round(number: float, round_place: int = 0):
 
 	number_to_str = str(number)
 	split_number = number_to_str.split('.')
-	past_decimal = split_number[1]  # number(s) past the decimal
-	first_numbers = int(split_number[0])  # the whole number
+	past_decimal = split_number[1]  # number(s) past the decimal as str
+	first_numbers = int(split_number[0])  # the whole number as int
 
 	if round_place == 0:
-		if int(past_decimal) >= 5:
+		if int(past_decimal[:1]) >= 5:
 			first_numbers += 1
 			return first_numbers
 		else:
@@ -46,7 +47,7 @@ def round(number: float, round_place: int = 0):
 			zero_string = ''  # add a 1 to whatever place needs changed to be 1 higher
 			# the for range determines where the number that needs to be changed is
 
-			for i in range(round_place):  # TODO: use a diff method cuz this CAN be hella slow
+			for i in range(round_place):
 				if i + 1 == round_place:
 					zero_string += '1'
 				else:
