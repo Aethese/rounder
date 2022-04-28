@@ -56,8 +56,8 @@ except Exception as e:
 	print('Test 4 failed with error:', e)
 	failed += 1
 
-error_message = '[Rounder] Failed to round past available digits. Number: 3.14, Round place: 5'
-if test_4a == 'not inappropriate' and test_4b == error_message:
+test_4b_error = '[Rounder] Failed to round past available digits. Number: 3.14, Round place: 5'
+if test_4a == 'not inappropriate' and test_4b == test_4b_error:
 	print('Test 4 passed')
 else:
 	print('Test 4 failed:', test_4a, test_4b)
@@ -87,11 +87,16 @@ print(finish_time2, 'built in round full number')
 
 
 try:  # test 6
-	test_6a = rounder.round(3.9, 1)
-	test_6b = rounder.round(3.99, 2)
+	test_6a = rounder.round(3.99, 1)
+	test_6b = rounder.round(3.49, 1)
 except Exception as e:
 	print('Test 6 failed with error:', e)
 	failed += 1
 
+if test_6a == 4 and test_6b == 4:
+	print('Test 6 passed')
+else:
+	print('Test 6 failed:', test_6a, test_6b)
+	failed += 1
 
 print(f'\n{failed} test(s) failed')
