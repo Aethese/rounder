@@ -12,7 +12,7 @@ def _return_handler(number, error = None):
 	if return_format == 'none':
 		return None
 	elif return_format == 'error_message':
-		return 'An error occured while rounding' if error is None else error
+		return 'An error occured while rounding' if error is None else '[Rounder] ' + error
 	else:
 		return number  # in any other case just return the number
 
@@ -45,8 +45,8 @@ def round(number: float, round_place: int = 0):
 
 	number_to_str = str(number)
 	split_number = number_to_str.split('.')
-	past_decimal = split_number[1]  # number(s) past the decimal as str
 	first_numbers = int(split_number[0])  # the whole number as int
+	past_decimal = split_number[1]  # number(s) past the decimal as str
 
 	if round_place == 0:
 		if int(past_decimal[:1]) >= 5:
