@@ -55,7 +55,7 @@ def round(number: float, round_place: int = 0):
 		else:
 			return first_numbers
 	else:  # round past decimal
-		if len(past_decimal) < round_place:
+		if len(past_decimal) < round_place or len(past_decimal) == 1:
 			return _return_handler(number, f'Failed to round past available digits. Number: {number}, Round place: {round_place}')
 
 		if int(past_decimal[round_place]) >= 5:
