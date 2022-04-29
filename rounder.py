@@ -41,10 +41,10 @@ def _round_past_decimal(round_place, first_numbers, past_decimal):
 	return float(rounded_number)
 
 
-def _scan_number(round_place, first_numbers, past_decimal):
+def _search_number(round_place, first_numbers, past_decimal):
 	for i in past_decimal[round_place:]:
 		if int(i) >= 5:
-			return _round_past_decimal(round_place, first_numbers, past_decimal)
+			return _round_past_decimal(1 if round_place == 0 else round_place, first_numbers, past_decimal)
 		elif int(i) == 4:  # basic check out of the way
 			continue
 		else:
@@ -92,14 +92,14 @@ def round(number: float, round_place: int = 0):
 			first_numbers += 1
 			return first_numbers
 		elif int(past_decimal[:1]) == 4:
-			scan = _scan_number(round_place, first_numbers, past_decimal)
-			scan_split = str(scan).split('.')
-			final_scan = str(_scan_number(round_place, scan_split[0], scan_split[1])).split('.')
-			if int(final_scan[1]) >= 5:
+			search = _search_number(round_place, first_numbers, past_decimal)
+			search_split = str(search).split('.')
+			final_search = str(_search_number(round_place, search_split[0], search_split[1])).split('.')
+			if int(final_search[1][:1]) >= 5:
 				first_numbers += 1
 				return first_numbers
 			else:
-				return scan
+				return search
 		else:
 			return first_numbers
 	else:  # round past decimal
@@ -109,7 +109,7 @@ def round(number: float, round_place: int = 0):
 		if int(past_decimal[round_place]) >= 5:
 			return _round_past_decimal(round_place, first_numbers, past_decimal)
 		elif int(past_decimal[round_place]) == 4:
-			return _scan_number(round_place, first_numbers, past_decimal)
+			return _search_number(round_place, first_numbers, past_decimal)
 		else:
 			rounded_number = str(first_numbers) + '.' + past_decimal[:round_place]
 			return float(rounded_number)
