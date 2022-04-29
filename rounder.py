@@ -11,7 +11,7 @@ return_format = 'same_number'  # default is same_number
 def _return_handler(number, error = None):
 	if return_format == 'none':
 		return None
-	elif return_format == 'error_message':
+	elif return_format == 'error_message':  # could also raise an error for easier debugging?
 		return 'An error occured while rounding' if error is None else '[Rounder] ' + error
 	else:
 		return number  # in any other case just return the number
@@ -35,7 +35,7 @@ def _round_past_decimal(round_place, first_numbers, past_decimal):
 	old_past = float('0.' + past_decimal)  # old past decimal numbers
 	new_past_numbers = str(zero_string + old_past).split('.')  # new past decimal numbers
 	if int(new_past_numbers[0]) >= 1:
-		first_numbers +=  int(new_past_numbers[0])
+		first_numbers += int(new_past_numbers[0])
 
 	rounded_number = str(first_numbers) + '.' + new_past_numbers[1][:round_place]
 	return float(rounded_number)
@@ -94,8 +94,7 @@ def round(number: float, round_place: int = 0):
 		elif int(past_decimal[:1]) == 4:
 			search = _search_number(round_place, first_numbers, past_decimal)
 			search_split = str(search).split('.')
-			final_search = str(_search_number(round_place, search_split[0], search_split[1])).split('.')
-			if int(final_search[1][:1]) >= 5:
+			if int(search_split[1][:1]) >= 5:
 				first_numbers += 1
 				return first_numbers
 			else:
