@@ -88,7 +88,7 @@ print(finish_time2, 'built in round full number')
 
 try:  # test 6
 	test_6a = rounder.round(3.99, 1)
-	test_6b = rounder.round(3.49, 1)
+	test_6b = rounder.round(3.49, 0)
 except Exception as e:
 	print('Test 6 failed with error:', e)
 	failed += 1
