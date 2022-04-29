@@ -11,10 +11,49 @@ return_format = 'same_number'  # default is same_number
 def _return_handler(number, error = None):
 	if return_format == 'none':
 		return None
-	elif return_format == 'error_message':
-		return 'An error occured while rounding' if error is None else error
+	elif return_format == 'error_message':  # could also raise an error for easier debugging?
+		return 'An error occured while rounding' if error is None else '[Rounder] ' + error
 	else:
 		return number  # in any other case just return the number
+
+
+def _round_past_decimal(round_place, first_numbers, past_decimal):
+	'''
+	rounds past the decimal point and returns the full number when done
+	'''
+	zero_string = ''  # add a 1 to whatever place needs changed to be 1 higher
+	# the for range determines where the number that needs to be changed is
+
+	for i in range(round_place):
+		if i + 1 == round_place:
+			zero_string += '1'
+		else:
+			zero_string += '0'
+	
+	zero_string = '0.' + zero_string
+	zero_string = float(zero_string)
+	old_past = float('0.' + past_decimal)  # old past decimal numbers
+	new_past_numbers = str(zero_string + old_past).split('.')  # new past decimal numbers
+	if int(new_past_numbers[0]) >= 1:
+		first_numbers += int(new_past_numbers[0])
+
+	rounded_number = str(first_numbers) + '.' + new_past_numbers[1][:round_place]
+	return float(rounded_number)
+
+
+def _search_number(round_place, first_numbers, past_decimal):
+	for i in past_decimal[round_place:]:
+		if int(i) >= 5:
+			return _round_past_decimal(1 if round_place == 0 else round_place, first_numbers, past_decimal)
+		elif int(i) == 4:  # basic check out of the way
+			continue
+		else:
+			rounded_number = str(first_numbers) + '.' + past_decimal[:round_place]
+			return float(rounded_number)
+
+	# if it goes through a whole number of 4s and can't round up
+	rounded_number = str(first_numbers) + '.' + past_decimal[:round_place]
+	return float(rounded_number)
 
 
 def round(number: float, round_place: int = 0):
@@ -45,36 +84,31 @@ def round(number: float, round_place: int = 0):
 
 	number_to_str = str(number)
 	split_number = number_to_str.split('.')
-	past_decimal = split_number[1]  # number(s) past the decimal as str
 	first_numbers = int(split_number[0])  # the whole number as int
+	past_decimal = split_number[1]  # number(s) past the decimal as str
 
 	if round_place == 0:
 		if int(past_decimal[:1]) >= 5:
 			first_numbers += 1
 			return first_numbers
+		elif int(past_decimal[:1]) == 4:
+			search = _search_number(round_place, first_numbers, past_decimal)
+			search_split = str(search).split('.')
+			if int(search_split[1][:1]) >= 5:
+				first_numbers += 1
+				return first_numbers
+			else:
+				return search
 		else:
 			return first_numbers
 	else:  # round past decimal
-		if len(past_decimal) < round_place:
+		if len(past_decimal) <= round_place or len(past_decimal) == 1:
 			return _return_handler(number, f'Failed to round past available digits. Number: {number}, Round place: {round_place}')
 
 		if int(past_decimal[round_place]) >= 5:
-			zero_string = ''  # add a 1 to whatever place needs changed to be 1 higher
-			# the for range determines where the number that needs to be changed is
-
-			for i in range(round_place):
-				if i + 1 == round_place:
-					zero_string += '1'
-				else:
-					zero_string += '0'
-			
-			zero_string = '0.' + zero_string
-			zero_string = float(zero_string)
-			old_past = float('0.' + past_decimal)
-			new_past_numbers = str(zero_string + old_past).split('.')[1]  # new numbers past decimal place
-
-			rounded_number = str(first_numbers) + '.' + str(new_past_numbers)[:round_place]
-			return float(rounded_number)
+			return _round_past_decimal(round_place, first_numbers, past_decimal)
+		elif int(past_decimal[round_place]) == 4:
+			return _search_number(round_place, first_numbers, past_decimal)
 		else:
 			rounded_number = str(first_numbers) + '.' + past_decimal[:round_place]
 			return float(rounded_number)

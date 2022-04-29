@@ -2,7 +2,7 @@
 My ***fast*** custom implementation of the built in `round` function in Python. I have no clue how it works, but it works (to my knowledge). Feel free to look at the source code and the tests I use to test it :)
 
 # How it works and how to use
-You will pass a float with a round to digit place (for example: hundredths) and it will round that float to that digit place. You don't have to pass round to digit place if you want to just round by the whole number (will return an integer). Example uses below:
+**Python 3.8 and above supported!** You will pass a float with a round to digit place (for example: hundredths) and it will round that float to that digit place. You don't have to pass round to digit place if you want to just round by the whole number (will return an integer). Example uses below:
 ```py
 rounder.round(3.14159)
 # Output: 3
