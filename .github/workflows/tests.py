@@ -93,10 +93,12 @@ except Exception as e:
 	print('Test 6 failed with error:', e)
 	failed += 1
 
-if test_6a == 4 and test_6b == 4:
+if test_6a == 4 and test_6b == 4.1:
 	print('Test 6 passed')
 else:
 	print('Test 6 failed:', test_6a, test_6b)
 	failed += 1
 
 print(f'\n{failed} test(s) failed')
+if failed >= 1:
+	exit(1)
