@@ -2,8 +2,6 @@
 Rounding module that rounds a float just like the built in round function lol
 '''
 
-__version__ = '1.3.0'
-
 # available options:
 # 	same_number: the same number passed onto the function
 #	error_message: an error message as to why it failed
@@ -54,9 +52,6 @@ def _search_number(round_place, first_numbers, past_decimal):
 			return float(rounded_number)
 
 	# if it goes through a whole number of 4s and can't round up
-	if round_place == 0:
-		return first_numbers
-
 	rounded_number = str(first_numbers) + '.' + past_decimal[:round_place]
 	return float(rounded_number)
 
@@ -98,17 +93,13 @@ def round(number: float, round_place: int = 0):
 			return first_numbers
 		elif int(past_decimal[:1]) == 4:
 			search = _search_number(round_place, first_numbers, past_decimal)
-			# if the number doesn't need rounded up just return original first number(s)
-			if isinstance(search, int):
-				return search
-
 			search_split = str(search).split('.')
 			if int(search_split[1][:1]) >= 5:
 				first_numbers += 1
 				return first_numbers
 			else:
 				return search
-		else:  # numbers past decimal don't need rounding
+		else:
 			return first_numbers
 	else:  # round past decimal
 		if len(past_decimal) <= round_place or len(past_decimal) == 1:
