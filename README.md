@@ -14,6 +14,3 @@ If you do attempt to round something that isn't a float or your round place is b
 
 # Fun fact
 Rounder seems to be faster than the built in round function (you can see my speed tests in `tests.py`)! Take that Python!
-
-# Why?
-Well first off, I kind of had to make this for a grade. Also I just wanted to make my own custom implemented round function for a while now (don't ask why), so this was the perfect excuse to make it. Feel free to actually use and edit the project to work to your liking. If you want to improve it feel free to make a pull request :)
