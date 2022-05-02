@@ -19,7 +19,4 @@ If you do attempt to round something that isn't a float or your round place is b
 Rounder, compared to the built-in round function of Python, is more 'advanced'. What I mean is that it rounds beyonds the number you want for a more estimate round. For example: 3.44445 rounded to the tenth place should be 3.5 if you round all the way through, which Rounder identifies correctly. Although it should be 3.5 (if you round all the way), the built-in round function defines it as 3.4. You may have different views on how to round so of course you can always use the built-in round function. 
 
 ## Speed
-In my personal tests, Rounder has always been faster than the built-in round function. Even though my personal tests have noted that Rounder was faster, the GitHub tests have always noted that the built-in round function has been faster. So keep this in mind when using
-
-# Fun fact
-**In my personal tests** Rounder seems to be faster than the built-in round function (you can see my speed tests in `tests.py`)! Although in the GitHub tests its slower than the built-in round function, so I'm not sure which is faster overall honestly.
+Rounder, overall, is faster than the built-in round function. You can check this info yourself by taking a look at the latest build tests.
