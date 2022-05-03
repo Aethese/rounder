@@ -124,7 +124,7 @@ try:  # Test 8
 	test_8a = rounder.round(-3.5)
 	test_8b = rounder.round(-3.3445)
 except Exception as e:
-	print('Test 8 failed with error', e)
+	print('Test 8 failed with error:', e)
 	failed += 1
 
 if test_8a == -4 and test_8b == -3:
@@ -133,7 +133,21 @@ else:
 	print('Test 8 failed:', test_8a, test_8b)
 	failed += 1
 
-print(f'\n{failed} test(s) failed')
 
+try:  # Test 9
+	test_9a = rounder.round(3.123124914285135135134, 3)
+	rounder.return_format = 'none'
+	test_9b = rounder.round(3.14319041930434, 20)
+except Exception as e:
+	print('Test 9 failed with error:', e)
+	failed += 1
+
+if test_9a == 3.123 and test_9b == None:
+	print('Test 9 passed')
+else:
+	print('Test 9 failed:', test_9a, test_9b)
+
+
+print(f'\n{failed} test(s) failed')
 if failed >= 1:
 	exit(1)
