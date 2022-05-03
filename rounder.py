@@ -84,15 +84,22 @@ def round(number: float, round_place: int = 0):
 		ex: 4.5 is returned as 5 or 4.4 is returned as 4
 	rounded_number : float
 		the actual rounded number that the user wants
+	_return_handler : None, str, any
+		depends on what the developer specified, but it can return None, an error string, or whatever number was inputted
+		as the options
 	'''
-	is_float = isinstance(number, float)
-	if not is_float:
+
+	if not isinstance(number, float):  # if it's not a float
 		return _return_handler(number, f'{number} is a {type(number).__name__}, not a float')
+
+	if round_place > 15:  # since rounder doesn't currently support more than 15 digits past decimal
+		round_place = 15
 
 	number_to_str = str(number)
 	split_number = number_to_str.split('.')
 	first_numbers = int(split_number[0])  # the whole number as int
 	past_decimal = split_number[1]  # number(s) past the decimal as str
+
 	# additional check to make sure there's only 15 digits past decimal
 	if len(past_decimal) > 15:
 		past_decimal = past_decimal[:15]
@@ -138,9 +145,11 @@ def round(number: float, round_place: int = 0):
 			return _return_handler(number, f'Failed to round past available digits. Number: {number}, Round place: {round_place}')
 
 		if int(past_decimal[round_place]) >= 5:
-			return _round_past_decimal(round_place, first_numbers, past_decimal)
+			rounded_number = _round_past_decimal(round_place, first_numbers, past_decimal)
+			return rounded_number
 		elif int(past_decimal[round_place]) == 4:
-			return _search_number(round_place, first_numbers, past_decimal)
+			rounded_number = _search_number(round_place, first_numbers, past_decimal)
+			return rounded_number
 		else:
 			rounded_number = str(first_numbers) + '.' + past_decimal[:round_place]
 			return float(rounded_number)
