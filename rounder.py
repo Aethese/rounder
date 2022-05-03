@@ -91,10 +91,22 @@ def round(number: float, round_place: int = 0):
 	split_number = number_to_str.split('.')
 	first_numbers = int(split_number[0])  # the whole number as int
 	past_decimal = split_number[1]  # number(s) past the decimal as str
+	# additional check to make sure there's only 15 digits past decimal
+	if len(past_decimal) > 15:
+		past_decimal = past_decimal[:15]
+		print('[Rounder] Warning: Limited digits past decimal place to just 15 digits')
+
+	if first_numbers < 0:
+		negative_number = True
+	else:
+		negative_number = False
 
 	if round_place == 0:
 		if int(past_decimal[:1]) >= 5:
-			first_numbers += 1
+			if negative_number:
+				first_numbers -= 1
+			else:
+				first_numbers += 1
 			return first_numbers
 		elif int(past_decimal[:1]) == 4:
 			search = _search_number(round_place, first_numbers, past_decimal)
@@ -104,7 +116,10 @@ def round(number: float, round_place: int = 0):
 
 			search_split = str(search).split('.')
 			if int(search_split[1][:1]) >= 5:
-				first_numbers += 1
+				if negative_number:
+					first_numbers -= 1
+				else:
+					first_numbers += 1
 				return first_numbers
 			else:
 				return search
