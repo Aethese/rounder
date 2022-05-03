@@ -122,7 +122,7 @@ else:
 
 try:  # Test 8
 	test_8a = rounder.round(-3.5)
-	test_8b = rounder.round(-3.4)
+	test_8b = rounder.round(-3.3445)
 except Exception as e:
 	print('Test 8 failed with error', e)
 	failed += 1
