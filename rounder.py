@@ -38,6 +38,8 @@ def _round_past_decimal(round_place, first_numbers, past_decimal):
 	new_past_numbers = str(zero_string + old_past).split('.')  # new past decimal numbers
 	if int(new_past_numbers[0]) >= 1:
 		first_numbers += int(new_past_numbers[0])
+	elif int(new_past_numbers[0]) <= -1:
+		first_numbers -= int(new_past_numbers[0])
 
 	rounded_number = str(first_numbers) + '.' + new_past_numbers[1][:round_place]
 	return float(rounded_number)
@@ -94,7 +96,7 @@ def round(number: float, round_place: int = 0):
 	# additional check to make sure there's only 15 digits past decimal
 	if len(past_decimal) > 15:
 		past_decimal = past_decimal[:15]
-		print('[Rounder] Warning: Limited digits past decimal place to just 15 digits')
+		print('[Rounder] Warning: Automatically set digits past decimal place to just 15')
 
 	if first_numbers < 0:
 		negative_number = True
