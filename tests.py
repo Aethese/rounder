@@ -4,6 +4,8 @@ os.system('cls' if os.name == 'nt' else 'clear')  # don't ask
 
 failed = 0
 
+print(f'Running Rounder version {rounder.__version__}')
+
 try:  # Test 1
 	test_1a = rounder.round(4.5191, 0)
 	test_1b = rounder.round(4.4191)
@@ -115,6 +117,20 @@ if test_7a == 2 and test_7b == 3:
 	print('Test 7 passed')
 else:
 	print('Test 7 failed:', test_7a, test_7b)
+	failed += 1
+
+
+try:  # Test 8
+	test_8a = rounder.round(-3.5)
+	test_8b = rounder.round(-3.4)
+except Exception as e:
+	print('Test 8 failed with error', e)
+	failed += 1
+
+if test_8a == -4 and test_8b == -3:
+	print('Test 8 passed')
+else:
+	print('Test 8 failed:', test_8a, test_8b)
 	failed += 1
 
 print(f'\n{failed} test(s) failed')
