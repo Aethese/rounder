@@ -98,6 +98,12 @@ def round(number: float, round_place: int = 0):
 		past_decimal = past_decimal[:15]
 		print('[Rounder] Warning: Automatically set digits past decimal place to just 15')
 
+		# honestly not sure if this is needed but gonna keep this for now
+		# added because a test failed because e was in it (at the end of it at least)
+		# a link to the test: https://github.com/Aethese/rounder/runs/6277132398
+		if past_decimal[-1] == 'e':
+			past_decimal = past_decimal[:-2]
+
 	if first_numbers < 0:
 		negative_number = True
 	else:
