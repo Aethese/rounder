@@ -2,6 +2,8 @@
 Rounding module that rounds a float just like the built in round function lol
 '''
 
+__version__ = '1.3.0'
+
 # available options:
 # 	same_number: the same number passed onto the function
 #	error_message: an error message as to why it failed
@@ -36,6 +38,8 @@ def _round_past_decimal(round_place, first_numbers, past_decimal):
 	new_past_numbers = str(zero_string + old_past).split('.')  # new past decimal numbers
 	if int(new_past_numbers[0]) >= 1:
 		first_numbers += int(new_past_numbers[0])
+	elif int(new_past_numbers[0]) <= -1:
+		first_numbers -= int(new_past_numbers[0])
 
 	rounded_number = str(first_numbers) + '.' + new_past_numbers[1][:round_place]
 	return float(rounded_number)
@@ -52,6 +56,9 @@ def _search_number(round_place, first_numbers, past_decimal):
 			return float(rounded_number)
 
 	# if it goes through a whole number of 4s and can't round up
+	if round_place == 0:
+		return first_numbers
+
 	rounded_number = str(first_numbers) + '.' + past_decimal[:round_place]
 	return float(rounded_number)
 
@@ -86,20 +93,45 @@ def round(number: float, round_place: int = 0):
 	split_number = number_to_str.split('.')
 	first_numbers = int(split_number[0])  # the whole number as int
 	past_decimal = split_number[1]  # number(s) past the decimal as str
+	# additional check to make sure there's only 15 digits past decimal
+	if len(past_decimal) > 15:
+		past_decimal = past_decimal[:15]
+		print('[Rounder] Warning: Automatically set digits past decimal place to just 15')
+
+		# honestly not sure if this is needed but gonna keep this for now
+		# added because a test failed because e was in it (at the end of it at least)
+		# a link to the test: https://github.com/Aethese/rounder/runs/6277132398
+		if past_decimal[-1] == 'e':
+			past_decimal = past_decimal[:-2]
+
+	if first_numbers < 0:
+		negative_number = True
+	else:
+		negative_number = False
 
 	if round_place == 0:
 		if int(past_decimal[:1]) >= 5:
-			first_numbers += 1
+			if negative_number:
+				first_numbers -= 1
+			else:
+				first_numbers += 1
 			return first_numbers
 		elif int(past_decimal[:1]) == 4:
 			search = _search_number(round_place, first_numbers, past_decimal)
+			# if the number doesn't need rounded up just return original first number(s)
+			if isinstance(search, int):
+				return search
+
 			search_split = str(search).split('.')
 			if int(search_split[1][:1]) >= 5:
-				first_numbers += 1
+				if negative_number:
+					first_numbers -= 1
+				else:
+					first_numbers += 1
 				return first_numbers
 			else:
 				return search
-		else:
+		else:  # numbers past decimal don't need rounding
 			return first_numbers
 	else:  # round past decimal
 		if len(past_decimal) <= round_place or len(past_decimal) == 1:

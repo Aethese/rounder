@@ -4,6 +4,8 @@ os.system('cls' if os.name == 'nt' else 'clear')  # don't ask
 
 failed = 0
 
+print(f'Running Rounder version {rounder.__version__}')
+
 try:  # Test 1
 	test_1a = rounder.round(4.5191, 0)
 	test_1b = rounder.round(4.4191)
@@ -66,11 +68,15 @@ else:
 
 try:  # Test 5
 	start_time1 = time.time()
+	rounder.round(3.14159, 2)
+	rounder.round(3.14159, 3)
 	rounder.round(3.14159, 4)
 	finish_time1 = time.time() - start_time1
 	finish_time1a = rounder.round(finish_time1, 2)  # hehe
 
 	start_time2 = time.time()
+	round(3.14159, 2)
+	round(3.14159, 3)
 	round(3.14159, 4)
 	finish_time2 = time.time() - start_time1
 	finish_time2a = rounder.round(finish_time2, 2)
@@ -80,15 +86,15 @@ except Exception as e:
 
 print('Test 5 passed with times:')
 print(finish_time1a, 'for rounder')
-print(finish_time2a, 'for built in round')
+print(finish_time2a, 'for built-in round')
 
 print(finish_time1, 'rounder full number')
-print(finish_time2, 'built in round full number')
+print(finish_time2, 'built-in round full number')
 
 
 try:  # test 6
 	test_6a = rounder.round(3.99, 1)
-	test_6b = rounder.round(3.49)
+	test_6b = rounder.round(3.44512)
 except Exception as e:
 	print('Test 6 failed with error:', e)
 	failed += 1
@@ -99,6 +105,35 @@ else:
 	print('Test 6 failed:', test_6a, test_6b)
 	failed += 1
 
+
+try:  # Test 7
+	test_7a = rounder.round(2.444444444444)
+	test_7b = rounder.round(2.444444444445)
+except Exception as e:
+	print('Test 7 failed with error:', e)
+	failed += 1
+
+if test_7a == 2 and test_7b == 3:
+	print('Test 7 passed')
+else:
+	print('Test 7 failed:', test_7a, test_7b)
+	failed += 1
+
+
+try:  # Test 8
+	test_8a = rounder.round(-3.5)
+	test_8b = rounder.round(-3.3445)
+except Exception as e:
+	print('Test 8 failed with error', e)
+	failed += 1
+
+if test_8a == -4 and test_8b == -3:
+	print('Test 8 passed')
+else:
+	print('Test 8 failed:', test_8a, test_8b)
+	failed += 1
+
 print(f'\n{failed} test(s) failed')
+
 if failed >= 1:
 	exit(1)
