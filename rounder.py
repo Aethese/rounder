@@ -1,14 +1,24 @@
 '''
-Rounding module that rounds a float just like the built in round function lol
+Rounding module that rounds a float just like the built-in round function
+
+Rounder options
+---------------
+disable_warnings : bool
+	able to choose if warnings are disabled or not
+return_format : str
+	able to choose how errors are returned. default is 'same_number'
+	available options (all changed as string):
+		same_number: the same number passed onto the function
+		error_message: an error message as to why it failed
+		none: just return None on error
+		anything else: just return same number passed
 '''
 
-__version__ = '1.3.0'
+__version__ = '1.3.1'
+disable_warnings = False
 
-# available options:
-# 	same_number: the same number passed onto the function
-#	error_message: an error message as to why it failed
-# 	none: just return None on error
-return_format = 'same_number'  # default is same_number
+# available options can be seen at top of file
+return_format = 'same_number'
 
 def _return_handler(number, error = None):
 	if return_format == 'none':
@@ -84,19 +94,30 @@ def round(number: float, round_place: int = 0):
 		ex: 4.5 is returned as 5 or 4.4 is returned as 4
 	rounded_number : float
 		the actual rounded number that the user wants
+	_return_handler : None, str, any
+		depends on what the developer specified, but it can return None, an error string, or whatever number was inputted
+		as the options
 	'''
-	is_float = isinstance(number, float)
-	if not is_float:
+
+	if not isinstance(number, float):  # if it's not a float
 		return _return_handler(number, f'{number} is a {type(number).__name__}, not a float')
+
+	if round_place > 15:  # since rounder doesn't currently support more than 15 digits past decimal
+		removed_amount = round_place - 15
+		round_place = 15
+		if not disable_warnings:
+			print(f'[Rounder] Warning: Automatically removed {removed_amount} digit(s) past decimal')
 
 	number_to_str = str(number)
 	split_number = number_to_str.split('.')
 	first_numbers = int(split_number[0])  # the whole number as int
 	past_decimal = split_number[1]  # number(s) past the decimal as str
+
 	# additional check to make sure there's only 15 digits past decimal
 	if len(past_decimal) > 15:
 		past_decimal = past_decimal[:15]
-		print('[Rounder] Warning: Automatically set digits past decimal place to just 15')
+		if not disable_warnings:
+			print('[Rounder] Warning: Automatically set digits past decimal place to just 15')
 
 		# honestly not sure if this is needed but gonna keep this for now
 		# added because a test failed because e was in it (at the end of it at least)
@@ -138,9 +159,11 @@ def round(number: float, round_place: int = 0):
 			return _return_handler(number, f'Failed to round past available digits. Number: {number}, Round place: {round_place}')
 
 		if int(past_decimal[round_place]) >= 5:
-			return _round_past_decimal(round_place, first_numbers, past_decimal)
+			rounded_number = _round_past_decimal(round_place, first_numbers, past_decimal)
+			return rounded_number
 		elif int(past_decimal[round_place]) == 4:
-			return _search_number(round_place, first_numbers, past_decimal)
+			rounded_number = _search_number(round_place, first_numbers, past_decimal)
+			return rounded_number
 		else:
 			rounded_number = str(first_numbers) + '.' + past_decimal[:round_place]
 			return float(rounded_number)

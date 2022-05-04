@@ -1,5 +1,5 @@
 # Rounder
-My ***fast*** custom implementation of the built-in `round` function in Python. It allows for **advanced** rounding with **artificial intelligence** to round fully, maybe even smarter than the built-in `round` function. I have no clue how it works, but it works (to my knowledge). Feel free to look at the source code and the tests I use to test it :)
+My ***fast***, custom implementation of the built-in `round` function in Python. It allows for **advanced** rounding with **artificial intelligence** to round fully, maybe even smarter than the built-in `round` function. I have no clue how it works, but it works (to my knowledge). Feel free to look at the source code and the tests I use to test it :)
 
 # How it works and how to use
 **Python 3.8 and above supported!** You will pass a float with a 'round to' digit place (for example: hundredths), and it will round that float to that digit place you specified. If you want to round by the whole number, you can either pass a 0 for round place or don't pass any round places. The return value will be `int`. Example uses below:
