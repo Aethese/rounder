@@ -3,6 +3,7 @@ Rounding module that rounds a float just like the built in round function lol
 '''
 
 __version__ = '1.3.0'
+disable_warnings = False
 
 # available options:
 # 	same_number: the same number passed onto the function
@@ -93,7 +94,10 @@ def round(number: float, round_place: int = 0):
 		return _return_handler(number, f'{number} is a {type(number).__name__}, not a float')
 
 	if round_place > 15:  # since rounder doesn't currently support more than 15 digits past decimal
+		removed_amount = round_place - 15
 		round_place = 15
+		if not disable_warnings:
+			print(f'[Rounder] Warning: Automatically removed {removed_amount} digit(s) past decimal')
 
 	number_to_str = str(number)
 	split_number = number_to_str.split('.')
@@ -103,7 +107,8 @@ def round(number: float, round_place: int = 0):
 	# additional check to make sure there's only 15 digits past decimal
 	if len(past_decimal) > 15:
 		past_decimal = past_decimal[:15]
-		print('[Rounder] Warning: Automatically set digits past decimal place to just 15')
+		if not disable_warnings:
+			print('[Rounder] Warning: Automatically set digits past decimal place to just 15')
 
 		# honestly not sure if this is needed but gonna keep this for now
 		# added because a test failed because e was in it (at the end of it at least)
