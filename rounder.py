@@ -1,15 +1,24 @@
 '''
-Rounding module that rounds a float just like the built in round function lol
+Rounding module that rounds a float just like the built-in round function
+
+Rounder options
+---------------
+disable_warnings : bool
+	able to choose if warnings are disabled or not
+return_format : str
+	able to choose how errors are returned. default is 'same_number'
+	available options (all changed as string):
+		same_number: the same number passed onto the function
+		error_message: an error message as to why it failed
+		none: just return None on error
+		anything else: just return same number passed
 '''
 
 __version__ = '1.3.1'
 disable_warnings = False
 
-# available options:
-# 	same_number: the same number passed onto the function
-#	error_message: an error message as to why it failed
-# 	none: just return None on error
-return_format = 'same_number'  # default is same_number
+# available options can be seen at top of file
+return_format = 'same_number'
 
 def _return_handler(number, error = None):
 	if return_format == 'none':
