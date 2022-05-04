@@ -2,7 +2,7 @@
 Rounding module that rounds a float just like the built in round function lol
 '''
 
-__version__ = '1.3.0'
+__version__ = '1.3.1'
 disable_warnings = False
 
 # available options:
