@@ -28,7 +28,7 @@ except Exception as e:
 	print('Test 2 failed with error:', e)
 	failed += 1
 
-if test_2a == 3.456 and test_2b == 3.457:
+if test_2a == 3.456 and test_2b == 3.457 and type(test_2a).__name__ == 'float' and type(test_2b).__name__ == 'float':
 	print('Test 2 passed')
 else:
 	print('Test 2 failed:', test_2a, test_2b)
@@ -42,7 +42,7 @@ except Exception as e:
 	print('Test 3 failed with error:', e)
 	failed += 1
 
-if test_3a == 3.5 and test_3b == 3.4:
+if test_3a == 3.5 and test_3b == 3.4 and type(test_3a).__name__ == 'float' and type(test_3b).__name__ == 'float':
 	print('Test 3 passed')
 else:
 	print('Test 3 failed:', test_3a, test_3b)
@@ -60,7 +60,7 @@ except Exception as e:
 	failed += 1
 
 test_4b_error = '[Rounder] Unable to round number. Number: 3.14, Round place: 5'
-if test_4a == 'not inappropriate' and test_4b == test_4b_error:
+if test_4a == 'not inappropriate' and test_4b == test_4b_error and type(test_4a).__name__ == 'str' and type(test_4b).__name__ == 'str':
 	print('Test 4 passed')
 else:
 	print('Test 4 failed:', test_4a, test_4b)
@@ -114,7 +114,7 @@ except Exception as e:
 	print('Test 7 failed with error:', e)
 	failed += 1
 
-if test_7a == 2 and test_7b == 3:
+if test_7a == 2 and test_7b == 3 and type(test_7a).__name__ == 'int' and type(test_7b).__name__ == 'int':
 	print('Test 7 passed')
 else:
 	print('Test 7 failed:', test_7a, test_7b)
@@ -143,7 +143,7 @@ except Exception as e:
 	print('Test 9 failed with error:', e)
 	failed += 1
 
-if test_9a == 3.123 and test_9b == None:
+if test_9a == 3.123 and test_9b == None and type(test_9a).__name__ == 'float':
 	print('Test 9 passed')
 else:
 	print('Test 9 failed:', test_9a, test_9b)
