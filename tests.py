@@ -14,7 +14,7 @@ except Exception as e:
 	print('Test 1 failed with error:', e)
 	failed += 1
 
-if test_1a == 5 and test_1b == 4:
+if test_1a == 5 and test_1b == 4 and type(test_1a).__name__ == 'int' and type(test_1b).__name__ == 'int':
 	print('Test 1 passed')
 else:
 	print('Test 1 failed:', test_1a, test_1b)
@@ -100,7 +100,7 @@ except Exception as e:
 	print('Test 6 failed with error:', e)
 	failed += 1
 
-if test_6a == 4 and test_6b == 4:
+if test_6a == 4 and test_6b == 4 and type(test_6a).__name__ == 'int' and type(test_6b).__name__ == 'int':
 	print('Test 6 passed')
 else:
 	print('Test 6 failed:', test_6a, test_6b)
@@ -128,7 +128,7 @@ except Exception as e:
 	print('Test 8 failed with error:', e)
 	failed += 1
 
-if test_8a == -4 and test_8b == -3:
+if test_8a == -4 and test_8b == -3 and type(test_8a).__name__ == 'int' and type(test_8b).__name__ == 'int':
 	print('Test 8 passed')
 else:
 	print('Test 8 failed:', test_8a, test_8b)
