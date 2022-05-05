@@ -14,7 +14,7 @@ return_format : str
 		anything else: just return same number passed
 '''
 
-__version__ = '1.3.1'
+__version__ = '1.3.2'
 disable_warnings = False
 
 # available options can be seen at top of file
@@ -125,10 +125,7 @@ def round(number: float, round_place: int = 0):
 		if past_decimal[-1] == 'e':
 			past_decimal = past_decimal[:-2]
 
-	if first_numbers < 0:
-		negative_number = True
-	else:
-		negative_number = False
+	negative_number = bool(first_numbers < 0)
 
 	if round_place == 0:
 		if int(past_decimal[:1]) >= 5:
