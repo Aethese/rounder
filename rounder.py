@@ -45,10 +45,13 @@ def _round_past_decimal(round_place, first_numbers, past_decimal):
 	zero_string = float('0.' + zero_string)
 	old_past = float('0.' + past_decimal)  # old past decimal numbers
 	new_past_numbers = str(zero_string + old_past).split('.')  # new past decimal numbers
+
 	if int(new_past_numbers[0]) >= 1:
 		first_numbers += int(new_past_numbers[0])
+		return first_numbers  # this will only happen if rounding by whole number (i think)
 	elif int(new_past_numbers[0]) <= -1:
 		first_numbers -= int(new_past_numbers[0])
+		return first_numbers
 
 	rounded_number = str(first_numbers) + '.' + new_past_numbers[1][:round_place]
 	return float(rounded_number)
@@ -58,9 +61,7 @@ def _search_number(round_place, first_numbers, past_decimal):
 	for i in past_decimal[round_place:]:
 		if int(i) >= 5:
 			return _round_past_decimal(1 if round_place == 0 else round_place, first_numbers, past_decimal)
-		elif int(i) == 4:  # basic check out of the way
-			continue
-		else:
+		elif int(i) <= 3:
 			rounded_number = str(first_numbers) + '.' + past_decimal[:round_place]
 			return float(rounded_number)
 
@@ -119,7 +120,6 @@ def round(number: float, round_place: int = 0):
 		# added below because a test failed because 'e' was in it (at the end of it at least)
 		# a link to the test: https://github.com/Aethese/rounder/runs/6277132398
 		if past_decimal[-1] == 'e':
-			print('removed e for some reason...')
 			past_decimal = past_decimal[:-2]
 		if not disable_warnings:
 			print('[Rounder] Warning: Automatically set digits past decimal place to just 15')
@@ -145,9 +145,9 @@ def round(number: float, round_place: int = 0):
 					first_numbers -= 1
 				else:
 					first_numbers += 1
-				return first_numbers
+				return int(first_numbers)
 			else:
-				return search
+				return int(search)
 		else:  # numbers past decimal don't need rounding
 			return first_numbers
 	else:  # round past decimal point
