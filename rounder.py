@@ -15,7 +15,7 @@ return_format : str
 		anything else: just return same number passed
 '''
 
-__version__ = '1.3.2'
+__version__ = '1.4.0'
 disable_warnings = False
 
 # available options can be seen at top of file
