@@ -59,7 +59,7 @@ except Exception as e:
 	print('Test 4 failed with error:', e)
 	failed += 1
 
-test_4b_error = '[Rounder] Failed to round past available digits. Number: 3.14, Round place: 5'
+test_4b_error = '[Rounder] Unable to round number. Number: 3.14, Round place: 5'
 if test_4a == 'not inappropriate' and test_4b == test_4b_error:
 	print('Test 4 passed')
 else:
