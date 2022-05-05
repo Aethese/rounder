@@ -3,6 +3,7 @@ import rounder
 os.system('cls' if os.name == 'nt' else 'clear')
 
 failed = 0
+rounder.disable_warnings = True
 
 print(f'Running Rounder version {rounder.__version__}')
 
@@ -13,7 +14,7 @@ except Exception as e:
 	print('Test 1 failed with error:', e)
 	failed += 1
 
-if test_1a == 5 and test_1b == 4:
+if test_1a == 5 and test_1b == 4 and type(test_1a).__name__ == 'int' and type(test_1b).__name__ == 'int':
 	print('Test 1 passed')
 else:
 	print('Test 1 failed:', test_1a, test_1b)
@@ -27,7 +28,7 @@ except Exception as e:
 	print('Test 2 failed with error:', e)
 	failed += 1
 
-if test_2a == 3.456 and test_2b == 3.457:
+if test_2a == 3.456 and test_2b == 3.457 and type(test_2a).__name__ == 'float' and type(test_2b).__name__ == 'float':
 	print('Test 2 passed')
 else:
 	print('Test 2 failed:', test_2a, test_2b)
@@ -41,7 +42,7 @@ except Exception as e:
 	print('Test 3 failed with error:', e)
 	failed += 1
 
-if test_3a == 3.5 and test_3b == 3.4:
+if test_3a == 3.5 and test_3b == 3.4 and type(test_3a).__name__ == 'float' and type(test_3b).__name__ == 'float':
 	print('Test 3 passed')
 else:
 	print('Test 3 failed:', test_3a, test_3b)
@@ -58,8 +59,8 @@ except Exception as e:
 	print('Test 4 failed with error:', e)
 	failed += 1
 
-test_4b_error = '[Rounder] Failed to round past available digits. Number: 3.14, Round place: 5'
-if test_4a == 'not inappropriate' and test_4b == test_4b_error:
+test_4b_error = '[Rounder] Unable to round number. Number: 3.14, Round place: 5'
+if test_4a == 'not inappropriate' and test_4b == test_4b_error and type(test_4a).__name__ == 'str' and type(test_4b).__name__ == 'str':
 	print('Test 4 passed')
 else:
 	print('Test 4 failed:', test_4a, test_4b)
@@ -99,7 +100,7 @@ except Exception as e:
 	print('Test 6 failed with error:', e)
 	failed += 1
 
-if test_6a == 4 and test_6b == 4:
+if test_6a == 4 and test_6b == 4 and type(test_6a).__name__ == 'int' and type(test_6b).__name__ == 'int':
 	print('Test 6 passed')
 else:
 	print('Test 6 failed:', test_6a, test_6b)
@@ -113,7 +114,7 @@ except Exception as e:
 	print('Test 7 failed with error:', e)
 	failed += 1
 
-if test_7a == 2 and test_7b == 3:
+if test_7a == 2 and test_7b == 3 and type(test_7a).__name__ == 'int' and type(test_7b).__name__ == 'int':
 	print('Test 7 passed')
 else:
 	print('Test 7 failed:', test_7a, test_7b)
@@ -127,7 +128,7 @@ except Exception as e:
 	print('Test 8 failed with error:', e)
 	failed += 1
 
-if test_8a == -4 and test_8b == -3:
+if test_8a == -4 and test_8b == -3 and type(test_8a).__name__ == 'int' and type(test_8b).__name__ == 'int':
 	print('Test 8 passed')
 else:
 	print('Test 8 failed:', test_8a, test_8b)
@@ -135,7 +136,6 @@ else:
 
 
 try:  # Test 9
-	rounder.disable_warnings = True
 	test_9a = rounder.round(3.123124914285135135134, 3)
 	rounder.return_format = 'none'
 	test_9b = rounder.round(3.14319041930434, 20)
@@ -143,10 +143,21 @@ except Exception as e:
 	print('Test 9 failed with error:', e)
 	failed += 1
 
-if test_9a == 3.123 and test_9b == None:
+if test_9a == 3.123 and test_9b == None and type(test_9a).__name__ == 'float':
 	print('Test 9 passed')
 else:
 	print('Test 9 failed:', test_9a, test_9b)
+
+
+try:  # Test 10
+	rounder.return_format = 'raise_error'
+	test_10 = rounder.round(3.14319041930434, 20)
+except IndexError:
+	print('Test 10 passed')
+except Exception as e:
+	print('Test 10 failed with error:', e)
+	failed += 1
+rounder.return_format = 'same_number'  # reset return_format
 
 
 print(f'\n{failed} test(s) failed')
