@@ -149,6 +149,17 @@ else:
 	print('Test 9 failed:', test_9a, test_9b)
 
 
+try:  # Test 10
+	rounder.return_format = 'raise_error'
+	test_10 = rounder.round(3.14319041930434, 20)
+except IndexError:
+	print('Test 10 passed')
+except Exception as e:
+	print('Test 10 failed with error:', e)
+	failed += 1
+rounder.return_format = 'same_number'  # reset return_format
+
+
 print(f'\n{failed} test(s) failed')
 if failed >= 1:
 	exit(1)
