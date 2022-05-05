@@ -3,6 +3,7 @@ import rounder
 os.system('cls' if os.name == 'nt' else 'clear')
 
 failed = 0
+rounder.disable_warnings = True
 
 print(f'Running Rounder version {rounder.__version__}')
 
@@ -135,7 +136,6 @@ else:
 
 
 try:  # Test 9
-	rounder.disable_warnings = True
 	test_9a = rounder.round(3.123124914285135135134, 3)
 	rounder.return_format = 'none'
 	test_9b = rounder.round(3.14319041930434, 20)
