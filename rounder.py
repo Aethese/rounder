@@ -10,6 +10,7 @@ return_format : str
 	available options (all changed as string):
 		same_number: the same number passed onto the function
 		error_message: an error message as to why it failed
+		raise_error: will raise an error when an error does occur
 		none: just return None on error
 		anything else: just return same number passed
 '''
@@ -20,11 +21,15 @@ disable_warnings = False
 # available options can be seen at top of file
 return_format = 'same_number'
 
-def _return_handler(number, error = None):
+def _return_handler(number, error = None, exception_type = None):
 	if return_format == 'none':
 		return None
-	elif return_format == 'error_message':  # could also raise an error for easier debugging?
-		return 'An error occured while rounding' if error is None else '[Rounder] ' + error
+	elif return_format == 'error_message':
+		return 'An unknown error occured while rounding' if error is None else '[Rounder] ' + error
+	elif return_format == 'raise_error':
+		if exception_type != None:  # if custom raise error
+			raise exception_type('An unknown error occured while rounding' if error is None else '[Rounder] ' + error)
+		raise Exception('An unknown error occured while rounding' if error is None else '[Rounder] ' + error)
 	else:
 		return number  # in any other case just return the number
 
@@ -100,7 +105,7 @@ def round(number: float, round_place: int = 0):
 	'''
 
 	if not isinstance(number, float):  # if it's not a float, just return whatever they pased
-		return _return_handler(number, f'{number} is a {type(number).__name__}, not a float')
+		return _return_handler(number, f'{number} is a {type(number).__name__}, not a float', ValueError)
 
 	if round_place > 15:  # since rounder doesn't currently support more than 15 digits past decimal
 		removed_amount = round_place - 15
@@ -152,7 +157,7 @@ def round(number: float, round_place: int = 0):
 			return first_numbers
 	else:  # round past decimal point
 		if len(past_decimal) <= round_place or len(past_decimal) == 1:
-			return _return_handler(number, f'Unable to round number. Number: {number}, Round place: {round_place}')
+			return _return_handler(number, f'Unable to round number. Number: {number}, Round place: {round_place}', IndexError)
 
 		if int(past_decimal[round_place]) >= 5:
 			rounded_number = _round_past_decimal(round_place, first_numbers, past_decimal)
