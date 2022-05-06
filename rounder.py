@@ -15,7 +15,7 @@ return_format : str
 		anything else: just return same number passed
 '''
 
-__version__ = '1.4.0'
+__version__ = '1.4.1'
 disable_warnings = False
 
 # available options can be seen at top of file
@@ -145,12 +145,12 @@ def round(number: float, round_place: int = 0):
 				return search
 
 			search_split = str(search).split('.')
-			if int(search_split[1][:1]) >= 5:
+			if int(search_split[1][:1]) >= 5:  # get first digit past decimal point
 				if negative_number:
 					first_numbers -= 1
 				else:
 					first_numbers += 1
-				return int(first_numbers)
+				return first_numbers
 			else:
 				return int(search)
 		else:  # numbers past decimal don't need rounding
