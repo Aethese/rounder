@@ -86,10 +86,10 @@ except Exception as e:
 	failed += 1
 
 print('Test 5 passed with times:')
-print(finish_time1a, 'for rounder')
+print(finish_time1a, 'for Rounder')
 print(finish_time2a, 'for built-in round')
 
-print(finish_time1, 'rounder full number')
+print(finish_time1, 'Rounder full number')
 print(finish_time2, 'built-in round full number')
 
 
@@ -159,6 +159,34 @@ except Exception as e:
 	failed += 1
 rounder.return_format = 'same_number'  # reset return_format
 
+
+try:  # Test 11
+	test_11a = rounder.round(-3.9)
+	test_11b = rounder.round(-3.447)
+except Exception as e:
+	print('Test 11 failed with error:', e)
+	failed += 1
+
+if test_11a == -4 and test_11b == -4 and type(test_11a).__name__ == 'int' and type(test_11b).__name__ == 'int':
+	print('Test 11 passed')
+else:
+	print('Test 11 failed:', test_11a, test_11b)
+	failed += 1
+
+
+try:  # Test 12
+	test_12a = rounder.round(4.112309, 5)
+	rounder.return_format = 'same_number'
+	test_12b = rounder.round(4.1933012, 12)
+except Exception as e:
+	print('Test 12 failed with error:', e)
+	failed += 1
+
+if test_12a == 4.11231 and test_12b == 4.1933012 and type(test_12a).__name__ == 'float' and type(test_12b).__name__ == 'float':
+	print('Test 12 passed')
+else:
+	print('Test 11 failed:', test_12a, test_12b)
+	failed += 1
 
 print(f'\n{failed} test(s) failed')
 if failed >= 1:

@@ -15,7 +15,7 @@ return_format : str
 		anything else: just return same number passed
 '''
 
-__version__ = '1.4.0'
+__version__ = '1.4.1'
 disable_warnings = False
 
 # available options can be seen at top of file
@@ -28,10 +28,10 @@ def _return_handler(number, error = None, exception_type = None):
 		return 'An unknown error occured while rounding' if error is None else '[Rounder] ' + error
 	elif return_format == 'raise_error':
 		if exception_type != None:  # if custom raise error
-			raise exception_type('An unknown error occured while rounding' if error is None else '[Rounder] ' + error)
+			raise exception_type('[Rounder] ' + error)
 		raise Exception('An unknown error occured while rounding' if error is None else '[Rounder] ' + error)
-	else:
-		return number  # in any other case just return the number
+	else:  # in any other case just return the number
+		return number
 
 
 def _round_past_decimal(round_place, first_numbers, past_decimal):
@@ -44,6 +44,7 @@ def _round_past_decimal(round_place, first_numbers, past_decimal):
 	for i in range(round_place):
 		if i + 1 == round_place:
 			zero_string += '1'
+			break
 		else:
 			zero_string += '0'
 	
@@ -108,10 +109,9 @@ def round(number: float, round_place: int = 0):
 		return _return_handler(number, f'{number} is a {type(number).__name__}, not a float', ValueError)
 
 	if round_place > 15:  # since rounder doesn't currently support more than 15 digits past decimal
-		removed_amount = round_place - 15
 		round_place = 15
 		if not disable_warnings:
-			print(f'[Rounder] Warning: Automatically removed {removed_amount} digit(s) past decimal')
+			print(f'[Rounder] Warning: Automatically set round place to 15 digits')
 
 	number_to_str = str(number)
 	split_number = number_to_str.split('.')
@@ -145,12 +145,12 @@ def round(number: float, round_place: int = 0):
 				return search
 
 			search_split = str(search).split('.')
-			if int(search_split[1][:1]) >= 5:
+			if int(search_split[1][:1]) >= 5:  # get first digit past decimal point
 				if negative_number:
 					first_numbers -= 1
 				else:
 					first_numbers += 1
-				return int(first_numbers)
+				return first_numbers
 			else:
 				return int(search)
 		else:  # numbers past decimal don't need rounding
