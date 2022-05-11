@@ -108,10 +108,9 @@ def round(number: float, round_place: int = 0):
 		return _return_handler(number, f'{number} is a {type(number).__name__}, not a float', ValueError)
 
 	if round_place > 15:  # since rounder doesn't currently support more than 15 digits past decimal
-		removed_amount = round_place - 15
 		round_place = 15
 		if not disable_warnings:
-			print(f'[Rounder] Warning: Automatically removed {removed_amount} digit(s) past decimal')
+			print(f'[Rounder] Warning: Automatically set round place to 15 digits')
 
 	number_to_str = str(number)
 	split_number = number_to_str.split('.')
