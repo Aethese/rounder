@@ -44,6 +44,7 @@ def _round_past_decimal(round_place, first_numbers, past_decimal):
 	for i in range(round_place):
 		if i + 1 == round_place:
 			zero_string += '1'
+			break
 		else:
 			zero_string += '0'
 	
@@ -156,7 +157,8 @@ def round(number: float, round_place: int = 0):
 			return first_numbers
 	else:  # round past decimal point
 		if len(past_decimal) <= round_place or len(past_decimal) == 1:
-			return _return_handler(number, f'Unable to round number. Number: {number}, Round place: {round_place}', IndexError)
+			return _return_handler(number, f'Unable to round number. Number: {number}, Round place: {round_place}',
+			IndexError)
 
 		if int(past_decimal[round_place]) >= 5:
 			rounded_number = _round_past_decimal(round_place, first_numbers, past_decimal)
