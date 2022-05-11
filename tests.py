@@ -167,7 +167,7 @@ except Exception as e:
 	print('Test 11 failed with error:', e)
 	failed += 1
 
-if test_11a == -4 and test_11b == -4:
+if test_11a == -4 and test_11b == -4 and type(test_11a).__name__ == 'int' and type(test_11b).__name__ == 'int':
 	print('Test 11 passed')
 else:
 	print('Test 11 failed:', test_11a, test_11b)
