@@ -72,9 +72,6 @@ def _search_number(round_place, first_numbers, past_decimal):
 			return float(rounded_number)
 
 	# if it goes through a whole number of 4s and can't round up
-	if round_place == 0:
-		return first_numbers
-
 	rounded_number = str(first_numbers) + '.' + past_decimal[:round_place]
 	return float(rounded_number)
 
