@@ -185,8 +185,23 @@ except Exception as e:
 if test_12a == 4.11231 and test_12b == 4.1933012 and type(test_12a).__name__ == 'float' and type(test_12b).__name__ == 'float':
 	print('Test 12 passed')
 else:
-	print('Test 11 failed:', test_12a, test_12b)
+	print('Test 12 failed:', test_12a, test_12b)
 	failed += 1
+
+
+try:  # Test 13
+	test_13a = rounder.round(341.4)
+	test_13b = rounder.round(341.5)
+except Exception as e:
+	print('Test 13 failed with error:', e)
+	failed += 1
+
+if test_13a == 341 and test_13b == 342 and type(test_13a).__name__ == 'int' and type(test_13b).__name__ == 'int':
+	print('Test 13 passed')
+else:
+	print('Test 13 failed:', test_13a, test_13b)
+	failed += 1
+
 
 print(f'\n{failed} test(s) failed')
 if failed >= 1:
