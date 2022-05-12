@@ -123,26 +123,30 @@ def round(number: float, round_place: int = 0):
 		# a link to the test: https://github.com/Aethese/rounder/runs/6277132398
 		if past_decimal[-1] == 'e':
 			past_decimal = past_decimal[:-2]
+		elif past_decimal[-1] == '-':  # we love edge cases
+			past_decimal = past_decimal[:-3]
+		
 		if not disable_warnings:
 			print('[Rounder] Warning: Automatically set digits past decimal place to just 15')
 
 	negative_number = bool(first_numbers < 0)  # check if negative number
 
 	if round_place == 0:
-		if int(past_decimal[:1]) >= 5:
+		if int(past_decimal[0]) >= 5:
 			if negative_number:
 				first_numbers -= 1
 			else:
 				first_numbers += 1
 			return first_numbers
-		elif int(past_decimal[:1]) == 4:
+		elif int(past_decimal[0]) == 4:
 			search = _search_number(round_place, first_numbers, past_decimal)
+
 			# if the number doesn't need rounded up just return original first number(s)
 			if isinstance(search, int):
 				return search
 
 			search_split = str(search).split('.')
-			if int(search_split[1][:1]) >= 5:  # get first digit past decimal point
+			if int(search_split[1][0]) >= 5:  # get first digit past decimal point
 				if negative_number:
 					first_numbers -= 1
 				else:
