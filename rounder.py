@@ -52,9 +52,10 @@ def _round_past_decimal(round_place, first_numbers, past_decimal):
 	old_past = float('0.' + past_decimal)  # old past decimal numbers
 	new_past_numbers = str(zero_string + old_past).split('.')  # new past decimal numbers
 
+	# this will only happen if rounding by whole number (i think)
 	if int(new_past_numbers[0]) >= 1:
 		first_numbers += int(new_past_numbers[0])
-		return first_numbers  # this will only happen if rounding by whole number (i think)
+		return first_numbers
 	elif int(new_past_numbers[0]) <= -1:
 		first_numbers -= int(new_past_numbers[0])
 		return first_numbers
@@ -78,7 +79,12 @@ def _search_number(round_place, first_numbers, past_decimal):
 
 def round(number: float, round_place: int = 0):
 	'''
-	Rounds a float just like the built in round function lol
+	Rounds a float just like the built in round function, except with more advanced rounding
+
+	Rounder uses artificial intelligence to round beyond the point you want rounded for more precise
+	rounding. So `3.45` rounded by the whole number using Rounder is `4`, but if you used the built-in
+	round function it'd be `3`
+
 	Made by Aethese :)
 
 	Parameters
