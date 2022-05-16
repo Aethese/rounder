@@ -6,12 +6,13 @@ Rounder is a ***fast***, lightweight implementation of the built-in round functi
 
 ## Example uses
 ```py
-rounder.round(3.14159)
->>> Output: 3
->>> Type: int
-rounder.round(3.14159, 1)
->>> Output: 3.1
->>> Type: float
+>>> import rounder
+>>> rounder.round(3.14159)
+Output: 3
+Type: int
+>>> rounder.round(3.14159, 1)
+Output: 3.1
+Type: float
 ```
 ## Please note
 If you do attempt to round something that isn't a float or your round place is bigger than the current available digits, Rounder will just return your original passed number. You can change that by editing the `rounder.return_format` variable through code or just hard coding the change with the documentation included in the Rounder file.
