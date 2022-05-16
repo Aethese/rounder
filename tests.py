@@ -203,6 +203,20 @@ else:
 	failed += 1
 
 
+try:  # Test 14
+	test_14a = rounder.round(341.4897, -1)
+	test_14b = rounder.round(.1, -3)
+except Exception as e:
+	print('Test 14 failed with error:', e)
+	failed += 1
+
+if test_14a == 342 and test_14b == 0 and type(test_14a).__name__ == 'int' and type(test_14b).__name__ == 'int':
+	print('Test 14 passed')
+else:
+	print('Test 14 failed:', test_14a, test_14b)
+	failed += 1
+
+
 print(f'\n{failed} test(s) failed')
 if failed >= 1:
 	exit(1)
