@@ -17,7 +17,6 @@ return_format : str
 
 __version__ = '1.4.2'
 disable_warnings = False
-
 # available options can be seen at top of file
 return_format = 'same_number'
 
@@ -36,7 +35,7 @@ def _return_handler(number, error = None, exception_type = None):
 
 def _round_past_decimal(round_place, first_numbers, past_decimal):
 	'''
-	rounds past the decimal point and returns the full number when done
+	rounds past the decimal point and returns the full float (or int) number when done
 	'''
 
 	zero_string = ''  # add a 1 to whatever place needs changed to be 1 higher
@@ -65,6 +64,10 @@ def _round_past_decimal(round_place, first_numbers, past_decimal):
 
 
 def _search_number(round_place, first_numbers, past_decimal):
+	'''
+	searches through the number to see if 4 needs to be rounded up
+	'''
+
 	for i in past_decimal[round_place:]:
 		if int(i) >= 5:
 			return _round_past_decimal(1 if round_place == 0 else round_place, first_numbers, past_decimal)
@@ -133,8 +136,12 @@ def round(number: float, round_place: int = 0):
 		# a link to the test: https://github.com/Aethese/rounder/runs/6277132398
 		if past_decimal[-1] == 'e':
 			past_decimal = past_decimal[:-2]
+			if not disable_warnings:
+				print('[Rounder] Warning: Prevented error by removing leading \'e\'')
 		elif past_decimal[-1] == '-':  # we love edge cases
 			past_decimal = past_decimal[:-3]
+			if not disable_warnings:
+				print('[Rounder] Warning: Prevented error by removing leading \'-\'')
 		
 		if not disable_warnings:
 			print('[Rounder] Warning: Automatically set digits past decimal place to just 15')
