@@ -100,12 +100,12 @@ def round(number: float, round_place: int = 0):
 		if a float isn't passed then the same value passed will be returned
 	first_number : int
 		if number is being rounded to a whole number than it will return rounded for whole number.
-		ex: 4.5 is returned as 5 or 4.4 is returned as 4
+		ex: `4.5` is returned as `5` or `4.4` is returned as `4`
 	rounded_number : float
 		the actual rounded number that the user wants
 	_return_handler : None, str, any
-		depends on what the developer specified, but it can return None, an error string, or whatever number was inputted
-		as the options
+		depends on what the developer specified, but it can return None, an error string or raise an error,
+		or whatever number was inputted as the options
 	'''
 
 	if not isinstance(number, float):  # if it's not a float, just return whatever they pased
@@ -115,6 +115,10 @@ def round(number: float, round_place: int = 0):
 		round_place = 15
 		if not disable_warnings:
 			print(f'[Rounder] Warning: Automatically set round place to 15 digits')
+	elif round_place < 0:  # negative round place just messes things up in annoying ways
+		round_place = 0
+		if not disable_warnings:
+			print(f'[Rounder] Warning: Automatically set round place to 0 digits')
 
 	number_to_str = str(number)
 	split_number = number_to_str.split('.')
