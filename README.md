@@ -1,4 +1,4 @@
-# Rounder
+# Rounder [![Tests](https://github.com/Aethese/rounder/actions/workflows/run_test.yml/badge.svg?branch=main)](https://github.com/Aethese/rounder/actions/workflows/run_test.yml)
 Rounder is a ***fast***, lightweight implementation of the built-in round function in Python. It allows for **advanced** rounding with the use of **artificial intelligence** to round fully and completely. It rounds even better than the built-in round function with it's rounding accuracy. It's made to be as customized as possible with options such as how many digits you want rounded (even thought that's a granted feature), return format on error, and the option to disable warnings.
 
 # How it works and how to use
