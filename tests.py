@@ -3,7 +3,7 @@ import rounder
 os.system('cls' if os.name == 'nt' else 'clear')
 
 failed = 0
-rounder.disable_warnings = True
+rounder.disable_warnings = False
 
 print(f'Running Rounder version {rounder.__version__}')
 
