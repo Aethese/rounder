@@ -217,6 +217,21 @@ else:
 	failed += 1
 
 
+try:  # Test 15
+	rounder.return_format = 'none'
+	test_15a = rounder.round(3.1, 1)
+	test_15b = rounder.round(3.6, 1)
+except Exception as e:
+	print('Test 15 failed with error:', e)
+	failed += 1
+
+if test_15a == 3.1 and test_15b == 3.6 and type(test_15a).__name__ == 'float' and type(test_15b).__name__ == 'float':
+	print('Test 15 passed')
+else:
+	print('Test 15 failed:', test_15a, test_15b)
+	failed += 1
+
+
 print(f'\n{failed} test(s) failed')
 if failed >= 1:
 	exit(1)
