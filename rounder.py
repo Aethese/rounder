@@ -131,23 +131,24 @@ def round(number: float, round_place: int = 0):
 	# additional check to make sure there's only 15 digits past decimal
 	if len(past_decimal) > 15:
 		past_decimal = past_decimal[:15]
-		# honestly not sure if this is needed but gonna keep this for now
-		# added below because a test failed because 'e' was in it (at the end of it at least)
-		# a link to the test: https://github.com/Aethese/rounder/runs/6277132398
-		if past_decimal[-1] == 'e':
-			past_decimal = past_decimal[:-2]
-			if not disable_warnings:
-				print('[Rounder] Warning: Prevented error by removing leading \'e\'')
-		elif past_decimal[-1] == '-':  # we love edge cases
-			past_decimal = past_decimal[:-3]
-			if not disable_warnings:
-				print('[Rounder] Warning: Prevented error by removing leading \'-\'')
 		
 		if not disable_warnings:
 			print('[Rounder] Warning: Automatically set digits past decimal place to just 15')
 
-	negative_number = bool(first_numbers < 0)  # check if negative number
+		# sometimes after limiting digits, the last number is an e or -
+		# that causes errors so we remove them :)
+		if past_decimal[-1] == 'e':
+			past_decimal = past_decimal[:-2]
+			if not disable_warnings:
+				print('[Rounder] Warning: Prevented error by removing leading \'e\'')
+		elif past_decimal[-1] == '-':
+			past_decimal = past_decimal[:-3]
+			if not disable_warnings:
+				print('[Rounder] Warning: Prevented error by removing leading \'-\'')
 
+	negative_number = bool(first_numbers < 0)
+
+	# pre-checks complete, commence rounding B)
 	if round_place == 0:
 		if int(past_decimal[0]) >= 5:
 			if negative_number:
@@ -157,12 +158,8 @@ def round(number: float, round_place: int = 0):
 			return first_numbers
 		elif int(past_decimal[0]) == 4:
 			search = _search_number(round_place, first_numbers, past_decimal)
-
-			# if the number doesn't need rounded up just return original first number(s)
-			if isinstance(search, int):
-				return search
-
 			search_split = str(search).split('.')
+
 			if int(search_split[1][0]) >= 5:  # get first digit past decimal point
 				if negative_number:
 					first_numbers -= 1
@@ -174,8 +171,10 @@ def round(number: float, round_place: int = 0):
 		else:  # numbers past decimal don't need rounding
 			return first_numbers
 	else:  # round past decimal point
-		if len(past_decimal) <= round_place or len(past_decimal) == 1:
+		if len(past_decimal) < round_place:  # if available digits is smaller than round place
 			return _return_handler(number, f'Unable to round number. Number: {number}, Round place: {round_place}', IndexError)
+		if len(past_decimal) == 1:  # if round place is 0
+			past_decimal = past_decimal + '0'
 
 		if int(past_decimal[round_place]) >= 5:
 			rounded_number = _round_past_decimal(round_place, first_numbers, past_decimal)
