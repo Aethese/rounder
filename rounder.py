@@ -51,7 +51,8 @@ def _round_past_decimal(round_place, first_numbers, past_decimal):
 	old_past = float('0.' + past_decimal)  # old past decimal numbers
 	new_past_numbers = str(zero_string + old_past).split('.')  # new past decimal numbers
 
-	# this will only happen if rounding by whole number (i think)
+	# this will happen if rounding by whole number or by rounding the tenth spot and it
+	# forces the number to round up
 	if int(new_past_numbers[0]) >= 1:
 		first_numbers += int(new_past_numbers[0])
 		return first_numbers
