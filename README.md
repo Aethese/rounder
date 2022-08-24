@@ -2,7 +2,7 @@
 Rounder is a ***fast***, lightweight implementation of the built-in round function in Python. It allows for **advanced** rounding with the use of **artificial intelligence** to round fully and completely. It rounds even better than the built-in round function with it's rounding accuracy. It's made to be as customized as possible with options such as how many digits you want rounded (even though that's a granted feature), return format on error, and the option to disable warnings.
 
 # How it works and how to use
-**Python 3.8 and above supported!** You can use it just like the built-in round function, with option for round to digit place (for example: the hundredths place) and it will round the float you passed to the digit palce you specified. If you didn't specify a round place it will automatically round by the whole number. The return value for whole numbers will always be `int`, while floats will obviously be a `float`.
+**Python 3.8 and above supported!** You can use it just like the built-in round function, with option for round to digit place (for example: the hundredths place) and it will round the float you passed to the digit place you specified. If you didn't specify a round place it will automatically round by the whole number. The return value for whole numbers will always be `int`, while floats will obviously be a `float`.
 
 ## Example uses
 ```py
@@ -14,8 +14,6 @@ Type: int
 Output: 3.1
 Type: float
 ```
-## Please note
-If you do attempt to round something that isn't a float or your round place is bigger than the current available digits, Rounder will just return your original passed number. You can change that by editing the `rounder.return_format` variable through code or just hard coding the change with the documentation included in the Rounder file.
 
 # Why use Rounder
 ## Comparing to built-in round function
