@@ -15,10 +15,10 @@ return_format : str
 		anything else: just return same number passed
 '''
 
-__version__ = '1.4.2'
+__version__ = '1.4.3'
 disable_warnings = False
 # available options can be seen at top of file
-return_format = 'same_number'
+return_format = 'raise_error'
 
 def _return_handler(number, error = None, exception_type = None):
 	if return_format == 'none':
