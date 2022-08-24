@@ -81,7 +81,7 @@ def _search_number(round_place, first_numbers, past_decimal):
 	return float(rounded_number)
 
 
-def round(number: float, round_place: int = 0):
+def round(passed_in_number: float, round_place: int = 0):
 	'''
 	Rounds a float just like the built in round function, except with more advanced rounding
 
@@ -93,7 +93,7 @@ def round(number: float, round_place: int = 0):
 
 	Parameters
 	----------
-	number : float
+	passed_in_number : float
 		number that needs to be rounded
 	round_place : int
 		place after decimal to be rounded. if not passed defaults to whole number
@@ -112,19 +112,19 @@ def round(number: float, round_place: int = 0):
 		or whatever number was inputted as the options
 	'''
 
-	if not isinstance(number, float):  # if it's not a float, just return whatever they pased
-		return _return_handler(number, f'{number} is a {type(number).__name__}, not a float', ValueError)
+	if not isinstance(passed_in_number, float):  # if it's not a float, just return whatever they pased
+		return _return_handler(passed_in_number, f'{passed_in_number} is a {type(passed_in_number).__name__}, not a float', ValueError)
 
 	if round_place > 15:  # since rounder doesn't currently support more than 15 digits past decimal
 		round_place = 15
 		if not disable_warnings:
-			print(f'[Rounder] Warning: Automatically set round place to 15 digits')
+			print('[Rounder] Warning: Automatically set round place to 15 digits')
 	elif round_place < 0:  # negative round place just messes things up in annoying ways
 		round_place = 0
 		if not disable_warnings:
-			print(f'[Rounder] Warning: Automatically set round place to 0 digits')
+			print('[Rounder] Warning: Automatically set round place to 0 digits')
 
-	number_to_str = str(number)
+	number_to_str = str(passed_in_number)
 	split_number = number_to_str.split('.')
 	first_numbers = int(split_number[0])  # the whole number as int
 	past_decimal = split_number[1]  # number(s) past the decimal as str
@@ -173,7 +173,7 @@ def round(number: float, round_place: int = 0):
 			return first_numbers
 	else:  # round past decimal point
 		if len(past_decimal) < round_place:  # if available digits is smaller than round place
-			return _return_handler(number, f'Unable to round number. Number: {number}, Round place: {round_place}', IndexError)
+			return _return_handler(passed_in_number, f'Unable to round number. Number: {passed_in_number}, Round place: {round_place}', IndexError)
 		if len(past_decimal) == 1:  # if round place is 0
 			past_decimal = past_decimal + '0'
 
