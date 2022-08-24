@@ -14,8 +14,6 @@ Type: int
 Output: 3.1
 Type: float
 ```
-## Please note
-If you do attempt to round something that isn't a float or your round place is bigger than the current available digits, Rounder will just return your original passed number. You can change that by editing the `rounder.return_format` variable through code or just hard coding the change with the documentation included in the Rounder file.
 
 # Why use Rounder
 ## Comparing to built-in round function
