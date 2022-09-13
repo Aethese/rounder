@@ -112,7 +112,7 @@ def round(passed_in_number: float, round_place: int = 0):
 		or whatever number was inputted as the options
 	'''
 
-	if not isinstance(passed_in_number, float):  # if it's not a float, just return whatever they pased
+	if not isinstance(passed_in_number, float):  # if it's not a float
 		return _return_handler(passed_in_number, f'{passed_in_number} is a {type(passed_in_number).__name__}, not a float', ValueError)
 
 	if round_place > 15:  # since rounder doesn't currently support more than 15 digits past decimal
