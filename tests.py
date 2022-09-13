@@ -232,6 +232,20 @@ else:
 	failed += 1
 
 
+try:  # Test 16
+	test_16a = rounder.round(3.14159265358979323846264338327950288, 14)
+	test_16b = rounder.round(3.14159265358979323846264338327950288, 15)
+except Exception as e:
+	print('Test 16 failed with error:', e)
+	failed += 1
+
+if test_16a == 3.14159265358979 and test_16b == 3.141592653589793 and type(test_16a).__name__ == 'float' and type(test_16b).__name__ == 'float':
+	print('Test 16 passed')
+else:
+	print('Test 16 failed:', test_16a, test_16b)
+	failed += 1
+
+
 print(f'\n{failed} test(s) failed')
 if failed >= 1:
 	exit(1)

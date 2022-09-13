@@ -15,12 +15,23 @@ return_format : str
 		anything else: just return same number passed
 '''
 
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 disable_warnings = False
 # available options can be seen at top of file
 return_format = 'raise_error'
 
 def _return_handler(number, error = None, exception_type = None):
+	'''
+	handles how errors or problems are returned
+	
+	Available Return Options
+	------------------------
+	same_number: the same number passed onto the function
+	error_message: an error message as to why it failed
+	raise_error: will raise an error when an error does occur
+	none: just return None on error
+	'''
+
 	if return_format == 'none':
 		return None
 	elif return_format == 'error_message':
@@ -64,7 +75,7 @@ def _round_past_decimal(round_place, first_numbers, past_decimal):
 	return float(rounded_number)
 
 
-def _search_number(round_place, first_numbers, past_decimal):
+def _search_number(round_place: int, first_numbers: int, past_decimal: int):
 	'''
 	searches through the number to see if 4 needs to be rounded up
 	'''
@@ -152,10 +163,11 @@ def round(passed_in_number: float, round_place: int = 0):
 	# pre-checks complete, commence rounding B)
 	if round_place == 0:
 		if int(past_decimal[0]) >= 5:
-			if negative_number:  # NOTE: can shorten this up
+			if negative_number:
 				first_numbers -= 1
 			else:
 				first_numbers += 1
+
 			return first_numbers
 		elif int(past_decimal[0]) == 4:
 			search = _search_number(round_place, first_numbers, past_decimal)
@@ -166,16 +178,17 @@ def round(passed_in_number: float, round_place: int = 0):
 					first_numbers -= 1
 				else:
 					first_numbers += 1
+
 				return first_numbers
-			else:
+			else:  # can not round up
 				return int(search)
 		else:  # numbers past decimal don't need rounding
 			return first_numbers
 	else:  # round past decimal point
 		if len(past_decimal) < round_place:  # if available digits is smaller than round place
 			return _return_handler(passed_in_number, f'Unable to round number. Number: {passed_in_number}, Round place: {round_place}', IndexError)
-		if len(past_decimal) == 1:  # if round place is 0
-			past_decimal = past_decimal + '0'
+		if len(past_decimal) == round_place:  # if round place is equal to the amount of digits available
+			past_decimal += '0'
 
 		if int(past_decimal[round_place]) >= 5:
 			rounded_number = _round_past_decimal(round_place, first_numbers, past_decimal)
