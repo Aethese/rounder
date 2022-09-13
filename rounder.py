@@ -119,7 +119,7 @@ def round(passed_in_number: float, round_place: int = 0):
 		round_place = 15
 		if not disable_warnings:
 			print('[Rounder] Warning: Automatically set round place to 15 digits')
-	elif round_place < 0:  # negative round place just messes things up in annoying ways
+	elif round_place < 0:  # rounder doesn't support rounding the whole number
 		round_place = 0
 		if not disable_warnings:
 			print('[Rounder] Warning: Automatically set round place to 0 digits')
