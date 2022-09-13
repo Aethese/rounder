@@ -156,7 +156,7 @@ def round(passed_in_number: float, round_place: int = 0):
 				print('[Rounder] Warning: Prevented error by removing leading \'e\'')
 		elif past_decimal[-1] == '-':
 			past_decimal = past_decimal[:-2]  # 2 spots because it's 'e-' at the end
-			round_place -= 1
+			round_place -= 2
 			if not disable_warnings:
 				print('[Rounder] Warning: Prevented error by removing leading \'-\'')
 
