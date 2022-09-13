@@ -1,5 +1,6 @@
-import os, time
+import os
 import rounder
+import time
 os.system('cls' if os.name == 'nt' else 'clear')
 
 failed = 0
