@@ -155,12 +155,13 @@ def round(passed_in_number: float, round_place: int = 0):
 			if not disable_warnings:
 				print('[Rounder] Warning: Prevented error by removing leading \'e\'')
 		elif past_decimal[-1] == '-':
-			print(past_decimal)
+			debug_list = [past_decimal]  # NOTE: delete after i figure out how the dash works
 			past_decimal = past_decimal[:-2]  # 2 spots because i think it can be 'e-' at the end
 			round_place -= 1
-			print(past_decimal)
+			debug_list.append(past_decimal)  # NOTE: delete like above
 			if not disable_warnings:
 				print('[Rounder] Warning: Prevented error by removing leading \'-\'')
+				print('[Rounder] Debug info: ' + ', '.join(debug_list))  # NOTE: delete like above
 
 	negative_number = bool(first_numbers < 0)
 
