@@ -152,7 +152,7 @@ def round(passed_in_number: float, round_place: int = 0):
 	# pre-checks complete, commence rounding B)
 	if round_place == 0:
 		if int(past_decimal[0]) >= 5:
-			if negative_number:
+			if negative_number:  # NOTE: can shorten this up
 				first_numbers -= 1
 			else:
 				first_numbers += 1
