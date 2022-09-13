@@ -80,7 +80,7 @@ try:  # Test 5
 	round(3.14159, 2)
 	round(3.14159, 3)
 	round(3.14159, 4)
-	finish_time2 = time.time() - start_time1
+	finish_time2 = time.time() - start_time2
 	finish_time2a = rounder.round(finish_time2, 2)
 except Exception as e:
 	print('Test 5 failed with error:', e)
