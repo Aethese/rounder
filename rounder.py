@@ -150,9 +150,8 @@ def round(passed_in_number: float, round_place: int = 0):
 		# sometimes after limiting digits, the last number is an e or -
 		# that causes errors so we remove them :)
 		if past_decimal[-1] == 'e':
-			print(past_decimal)
-			past_decimal = past_decimal[:-2]
-			print(past_decimal)
+			past_decimal = past_decimal[:-1]
+			round_place -= 1
 			if not disable_warnings:
 				print('[Rounder] Warning: Prevented error by removing leading \'e\'')
 		elif past_decimal[-1] == '-':
