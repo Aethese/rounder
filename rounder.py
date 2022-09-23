@@ -15,7 +15,7 @@ return_format : str
 		anything else: just return same number passed
 '''
 
-__version__ = '1.4.4'
+__version__ = '1.4.5'
 disable_warnings = False
 # available options can be seen at top of file
 return_format = 'raise_error'
@@ -151,12 +151,18 @@ def round(passed_in_number: float, round_place: int = 0):
 		# that causes errors so we remove them :)
 		if past_decimal[-1] == 'e':
 			past_decimal = past_decimal[:-1]
-			round_place -= 1
+			# need to lower the round place in case there are conflicts
+			if round_place == 15:
+				round_place -= 1
 			if not disable_warnings:
 				print('[Rounder] Warning: Prevented error by removing leading \'e\'')
 		elif past_decimal[-1] == '-':
 			past_decimal = past_decimal[:-2]  # 2 spots because it's 'e-' at the end
-			round_place -= 2
+			# lower round place like with 'e' but need to remove one more since 'e-'
+			if round_place == 15:
+				round_place -= 2
+			elif round_place == 14:
+				round_place -= 1
 			if not disable_warnings:
 				print('[Rounder] Warning: Prevented error by removing leading \'-\'')
 
