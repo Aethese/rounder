@@ -38,7 +38,7 @@ def _return_handler(number, error = None, exception_type = None):
 		return 'An unknown error occured while rounding' if error is None else '[Rounder] ' + error
 	elif return_format == 'raise_error':
 		if exception_type != None:  # if custom raise error
-			raise exception_type('[Rounder] ' + error)
+			raise exception_type(f'[Rounder] {error}')
 		raise Exception('An unknown error occured while rounding' if error is None else '[Rounder] ' + error)
 	else:  # in any other case just return the number
 		return number
