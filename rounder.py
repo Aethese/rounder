@@ -32,24 +32,25 @@ def _return_handler(number, error=None, exception_type=None):
 	raise_error: will raise an error when an error does occur
 	none: just return None on error
 	'''
-
 	if return_format == 'none':
 		return None
 	elif return_format == 'error_message':
-		return 'An unknown error occured while rounding' if error is None else '[Rounder] ' + error
+		if error is None:
+			return 'An unknown error occured while rounding'
+
+		return f'[Rounder] {error}'
 	elif return_format == 'raise_error':
 		if exception_type != None:  # if custom raise error
 			raise exception_type(f'[Rounder] {error}')
-		raise Exception('An unknown error occured while rounding' if error is None else '[Rounder] ' + error)
+
+		# if no error message or exception type was raised
+		raise Exception('An unknown error occured while rounding')
 	else:  # in any other case just return the number
 		return number
 
 
 def _round_past_decimal(round_place, first_numbers, past_decimal):
-	'''
-	rounds past the decimal point and returns the full float (or int) number when done
-	'''
-
+	'''rounds past decimal point and returns full float (or int) number when done'''
 	zero_string = ''  # add a 1 to whatever place needs changed to be 1 higher
 
 	# the for range determines where the number that needs to be changed is
@@ -77,13 +78,11 @@ def _round_past_decimal(round_place, first_numbers, past_decimal):
 
 
 def _search_number(round_place: int, first_numbers: int, past_decimal: int):
-	'''
-	searches through the number to see if 4 needs to be rounded up
-	'''
-
+	'''searches through the number to see if 4 needs to be rounded up'''
 	for i in past_decimal[round_place:]:
 		if int(i) >= 5:
-			return _round_past_decimal(1 if round_place == 0 else round_place, first_numbers, past_decimal)
+			return _round_past_decimal(1 if round_place == 0 else round_place,
+				first_numbers, past_decimal)
 		elif int(i) <= 3:
 			rounded_number = str(first_numbers) + '.' + past_decimal[:round_place]
 			return float(rounded_number)
@@ -125,7 +124,6 @@ def round(passed_in_number: float, round_place: int = 0):
 		an error string or raise an error, or whatever number was inputted
 		as the options
 	'''
-
 	if not isinstance(passed_in_number, float):  # if it's not a float
 		return _return_handler(passed_in_number,
 			f'{passed_in_number} is a {type(passed_in_number).__name__}, not a float',
@@ -203,7 +201,7 @@ def round(passed_in_number: float, round_place: int = 0):
 			return _return_handler(passed_in_number,
 				f'Unable to round number. Number: {passed_in_number}, Round place: {round_place}',
 				IndexError)
-		
+
 		# if round place is equal to the amount of digits available
 		if len(past_decimal) == round_place:
 			past_decimal += '0'
