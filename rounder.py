@@ -6,7 +6,7 @@ Rounder options
 disable_warnings : bool
 	able to choose if warnings are disabled or not
 return_format : str
-	able to choose how errors are returned. default is 'same_number'
+	able to choose how errors are returned. default is 'raise_error'
 	available options (all changed as string):
 		same_number: the same number passed onto the function
 		error_message: an error message as to why it failed
