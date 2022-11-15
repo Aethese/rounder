@@ -21,3 +21,6 @@ Rounder, compared to the built-in round function of Python, is more 'advanced' a
 
 ## Speed
 Rounder, overall, is faster than the built-in round function. You can check this info yourself by taking a look at the latest build tests.
+
+# Why Rounder was made
+I just wanted a fun challenge, and recreating a more advanced version of the built-in round function without using any modules sounded like a hard and perfect challenge for me :)
