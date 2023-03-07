@@ -15,6 +15,9 @@ Output: 3.1
 Type: float
 ```
 
+## Installation
+Installation is as simple as moving the `rounder` folder to your working directory. There is no PIP installation at this time.
+
 # Why use Rounder
 ## Comparing to built-in round function
 Rounder, compared to the built-in round function of Python, is more 'advanced' and fast. What I mean is that it rounds beyonds the digit place you want for a more exact round with the help of **artificial intelligence**. For example: `3.44445` rounded to the tenth place should be `3.5` if you round all the way through, which Rounder identifies correctly. Although it should be `3.5` (if you round all the way), the built-in round function defines it as `3.4`. You may have different views on how to round, such as not rounding all the way through, so of course you can always use the built-in round function.
