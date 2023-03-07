@@ -1,5 +1,6 @@
 '''
-Rounding module that rounds a float just like the built-in round function
+Rounding module that rounds a float just like the built-in round function,
+except with better precision
 
 Rounder options
 ---------------
@@ -15,7 +16,7 @@ return_format : str
 		anything else: just return same number passed
 '''
 
-__version__ = '1.4.6'
+__version__ = '1.4.7'
 disable_warnings = False
 # available options can be seen at top of file
 return_format = 'raise_error'
