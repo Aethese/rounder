@@ -1,5 +1,6 @@
 '''
-Rounding module that rounds a float just like the built-in round function
+Rounding module that rounds a float just like the built-in round function,
+except with better precision
 
 Rounder options
 ---------------
@@ -15,15 +16,15 @@ return_format : str
 		anything else: just return same number passed
 '''
 
-__version__ = '1.4.6'
+__version__ = '1.4.7'
 disable_warnings = False
-# available options can be seen at top of file
+# available options for return format can be seen at top of file
 return_format = 'raise_error'
 
 
 def _return_handler(number, error=None, exception_type=None):
 	'''
-	handles how errors or problems are returned
+	handles how errors are returned
 
 	Available Return Options
 	------------------------
@@ -35,16 +36,9 @@ def _return_handler(number, error=None, exception_type=None):
 	if return_format == 'none':
 		return None
 	elif return_format == 'error_message':
-		if error is None:
-			return 'An unknown error occured while rounding'
-
 		return f'[Rounder] {error}'
 	elif return_format == 'raise_error':
-		if exception_type != None:  # if custom raise error
-			raise exception_type(f'[Rounder] {error}')
-
-		# if no error message or exception type was raised
-		raise Exception('An unknown error occured while rounding')
+		raise exception_type(f'[Rounder] {error}')
 	else:  # in any other case just return the number
 		return number
 
@@ -61,7 +55,7 @@ def _round_past_decimal(round_place, first_numbers, past_decimal):
 		zero_string += '0'
 
 	zero_string = float('0.' + zero_string)
-	old_past = float('0.' + past_decimal)  # old past decimal numbers
+	old_past = float('0.' + past_decimal)                      # old past decimal numbers
 	new_past_numbers = str(zero_string + old_past).split('.')  # new past decimal numbers
 
 	# this will happen if rounding by whole number or by rounding the tenth spot and it
@@ -108,7 +102,7 @@ def round(passed_in_number: float, round_place: int = 0):
 	passed_in_number : float
 		number that needs to be rounded
 	round_place : int
-		place after decimal to be rounded. if not passed defaults to whole number
+		place after decimal to be rounded. if not passed, defaults to whole number
 
 	Returns
 	-------
@@ -124,23 +118,23 @@ def round(passed_in_number: float, round_place: int = 0):
 		an error string or raise an error, or whatever number was inputted
 		as the options
 	'''
-	if not isinstance(passed_in_number, float):  # if it's not a float
+	if not isinstance(passed_in_number, float):
 		return _return_handler(passed_in_number,
 			f'{passed_in_number} is a {type(passed_in_number).__name__}, not a float',
 			ValueError)
 
-	# since rounder doesn't currently support more than 15 digits past decimal
+	# we lose precision after rounding past the 15th round place
 	if round_place > 15:
 		round_place = 15
 		if not disable_warnings:
 			print('[Rounder] Warning: Automatically set round place to 15 digits')
-	elif round_place < 0:  # rounder doesn't support rounding the whole number
+	elif round_place < 0:  # no support for rounding the whole number in a specific spot
 		round_place = 0
 		if not disable_warnings:
 			print('[Rounder] Warning: Automatically set round place to 0 digits')
 
-	number_to_str = str(passed_in_number)
-	split_number = number_to_str.split('.')
+	number_as_str = str(passed_in_number)  # not used again, except in split_number
+	split_number = number_as_str.split('.')
 	first_numbers = int(split_number[0])  # the whole number as int
 	past_decimal = split_number[1]  # number(s) past the decimal as str
 
