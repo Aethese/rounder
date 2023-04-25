@@ -18,7 +18,7 @@ Type: float
 ## Installation
 Installation is as simple as moving the `rounder` folder to your working directory. There is no PIP installation at this time.
 
-## Is this production ready?
+# Is this production ready?
 Probably not. There are many use cases that just haven't been tested yet. I do use Rounder a lot for some of my personal projects because it has been stable for my use cases.
 
 # Why use Rounder
