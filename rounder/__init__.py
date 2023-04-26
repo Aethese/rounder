@@ -131,7 +131,7 @@ def round(passed_in_number: float, round_place: int = 0):
 	split_number = number_as_str.split('.')
 	first_numbers = int(split_number[0])  # the whole number before the decimal as int
 	past_decimal = split_number[1]  # number(s) past the decimal as str
-	negative_number = bool(first_numbers < 0)  # determines if the number is negative 
+	negative_number = bool(first_numbers < 0)  # determines if the number is negative
 
 	# we lose precision after rounding past the 15th round place
 	if round_place > 15:
