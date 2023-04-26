@@ -170,7 +170,7 @@ def round(passed_in_number: float, round_place: int = 0):
 				print('[Rounder] Warning: Prevented error by removing leading \'-\'')
 
 	# pre-checks complete, commence rounding B)
-	if round_place == 0:
+	if round_place == 0:  # whole number
 		if int(past_decimal[0]) >= 5:
 			if negative_number:
 				first_numbers -= 1
@@ -191,9 +191,9 @@ def round(passed_in_number: float, round_place: int = 0):
 				return first_numbers
 			else:  # can not round up
 				return int(search)
-		else:  # numbers past decimal don't need rounding
+		else:  # we can't round the whole number
 			return first_numbers
-	else:  # round past decimal point
+	else:  # we have to round a decimal place
 		if len(past_decimal) < round_place:  # if available digits is smaller than round place
 			return _return_handler(passed_in_number,
 				f'Unable to round number. Number: {passed_in_number}, Round place: {round_place}',
