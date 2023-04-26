@@ -72,7 +72,11 @@ def _round_past_decimal(round_place, first_numbers, past_decimal):
 
 
 def _search_number(round_place: int, first_numbers: int, past_decimal: int):
-	'''searches through the number to see if 4 needs to be rounded up'''
+	'''
+	searches through the number to see if 4 needs to be rounded up.
+	if 4 does need to be round up, we return the rounded number. if
+	4 can't round up, we just return a formatted float back
+	'''
 	for i in past_decimal[round_place:]:
 		if int(i) >= 5:
 			return _round_past_decimal(1 if round_place == 0 else round_place,
